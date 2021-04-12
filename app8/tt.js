@@ -117,7 +117,7 @@ var importObject = {
       return (new Date().valueOf() / 1000) >> 0;
     },
     wasm_inputState: function() {
-      return keyInputState | touchInputState;
+      return keyInputState | touchInputState | getGamepadBitmap();
     },
     wasm_cos: Math.cos,
     wasm_sin: Math.sin,
@@ -270,6 +270,45 @@ var importObject = {
     }
   }
 };
+
+/* Gamepad */
+function getGamepadBitmap(){
+    // FIXME: Yuniframe only
+    let gp = window.navigator.getGamepads();
+    if(gp && gp[0]){
+        let out = 0;
+        const buttons = gp[0].buttons;
+        if(buttons[12] && buttons[12].pressed){
+            out |= 1;
+        }
+        if(buttons[13] && buttons[13].pressed){
+            out |= 2;
+        }
+        if(buttons[14] && buttons[14].pressed){
+            out |= 4;
+        }
+        if(buttons[15] && buttons[15].pressed){
+            out |= 8;
+        }
+        if(buttons[0] && buttons[0].pressed){
+            out |= 0x10;
+        }
+        if(buttons[2] && buttons[2].pressed){
+            out |= 0x20;
+        }
+        if(buttons[1] && buttons[1].pressed){
+            out |= 0x80;
+        }
+        if(buttons[9] && buttons[9].pressed){
+            out |= 0x40;
+        }
+
+        return out;
+    }else{
+        return 0;
+    }
+}
+/*~Gamepad */
 
 var started = false;
 const targetFrameRate = 1000.0 / 60.0;

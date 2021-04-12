@@ -466,6 +466,7 @@ fetch('./tt.wasm').then(function(response) {
           memory = obj.instance.exports.memory;
           exports = obj.instance.exports;
           exports._start();
+          exports._resized(960,720); // Yuniframe
           onResize();
           onLoad();
           started = true;

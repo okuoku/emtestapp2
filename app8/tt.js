@@ -274,9 +274,9 @@ var importObject = {
 /* Gamepad */
 function getGamepadBitmap(){
     // FIXME: Yuniframe only
-    let gp = window.navigator.getGamepads();
+    var gp = window.navigator.getGamepads();
     if(gp && gp[0]){
-        let out = 0;
+        var out = 0;
         const buttons = gp[0].buttons;
         if(buttons[12] && buttons[12].pressed){
             out |= 1;

@@ -25836,6 +25836,7 @@ if (Module["noInitialRun"]) {
  shouldRunNow = false;
 }
 Module["noExitRuntime"] = true;
+Module["FS"] = FS;
 run();
 
 
